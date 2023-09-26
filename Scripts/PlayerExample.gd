@@ -2,8 +2,8 @@ extends KinematicBody
 
 
 const MOVE_SPEED = 20
-const JUMP_SPEED = 20
-const GRAVITY = 9.8
+const JUMP_SPEED = 15
+const GRAVITY = 30
 const MAX_FALL_SPEED = 100
 var y_velocity = 0
 var facing_right = false
