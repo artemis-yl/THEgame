@@ -1,15 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://background.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://PlayerExample.tscn" type="PackedScene" id=2]
 [ext_resource path="res://basic_cyborg.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://CheckButton.gd" type="Script" id=4]
+[ext_resource path="res://world.gd" type="Script" id=5]
+[ext_resource path="res://WillDisappear.tscn" type="PackedScene" id=6]
+[ext_resource path="res://willAppear.tscn" type="PackedScene" id=7]
+[ext_resource path="res://testGridMap.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Skin" id=3]
 
 [sub_resource type="CylinderShape" id=4]
 radius = 0.05
 
+[sub_resource type="Environment" id=5]
+background_mode = 1
+background_color = Color( 0.886275, 0.976471, 0.976471, 1 )
+ambient_light_color = Color( 0.647059, 0.627451, 0.662745, 1 )
+ambient_light_energy = 0.86
+ambient_light_sky_contribution = 0.19
+
 [node name="world" type="Spatial"]
+script = ExtResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.406602, 0, 0, 0, 0.534513, 0, 0, 0, 0.670095, 2.74954, 5.85113, -0.378425 )
@@ -22,18 +35,21 @@ skin = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.56349, -0.139524 )
 shape = SubResource( 4 )
 
-[node name="KinematicBody" parent="." instance=ExtResource( 2 )]
+[node name="player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.92044, 0 )
+
+[node name="CameraTarget" type="Spatial" parent="player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 30 )
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 1 )
 cell_center_z = false
 data = {
-"cells": PoolIntArray( 2, 0, 1, 17, 0, 1, 65518, 0, 1, 65523, 0, 1, 65528, 0, 1, 65533, 0, 1, 131049, 0, 1, 131091, 0, 1, 262117, 0, 1, 327692, 0, 1, 393186, 0, 1, 393198, 0, 1, 393225, 0, 1, 458735, 0, 1, 458740, 0, 1, 458759, 0, 1, 524280, 0, 1, 589818, 0, 1, 589823, 0, 1, -131064, 0, 1, -131059, 0, 1, -65529, 0, 1, 11, 1, 3, 131081, 3, 3, 1441777, 65524, 2, 393213, 65526, 2, 786385, 65526, 2, 131065, 65534, 3, 196602, 65534, 3, 131066, 65535, 3 )
+"cells": PoolIntArray( 2, 0, 1, 17, 0, 1, 65518, 0, 1, 65523, 0, 1, 65528, 0, 1, 65533, 0, 1, 131049, 0, 1, 131091, 0, 1, 262117, 0, 1, 327692, 0, 1, 393186, 0, 1, 393198, 0, 1, 393225, 0, 1, 458735, 0, 1, 458740, 0, 1, 458759, 0, 1, 524280, 0, 1, 589818, 0, 1, 589823, 0, 1, -131064, 0, 1, -131059, 0, 1, -65529, 0, 1, 11, 1, 3, 131081, 3, 3, 2097126, 65516, 393218, 983046, 65520, 393218, 589858, 65526, 393218, 655334, 65526, 393218, 131065, 65534, 3, 196602, 65534, 3, 131066, 65535, 3 )
 }
 __meta__ = {
 "_editor_clip_": 0,
-"_editor_floor_": Vector3( 0, 0, 0 )
+"_editor_floor_": Vector3( 0, -5, -10 )
 }
 
 [node name="Spatial" type="Spatial" parent="."]
@@ -44,3 +60,26 @@ light_color = Color( 0.980392, 0.980392, 0.94902, 1 )
 light_energy = 0.706
 shadow_enabled = true
 shadow_color = Color( 0.415686, 0.396078, 0.431373, 1 )
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 10, 50 )
+environment = SubResource( 5 )
+target = NodePath("../player/CameraTarget")
+speed = 1.5
+enabled = true
+
+[node name="CheckButton" type="CheckButton" parent="."]
+margin_left = 498.0
+margin_right = 595.0
+margin_bottom = 67.0
+script = ExtResource( 4 )
+
+[node name="WillDisappear" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+
+[node name="willAppear" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+
+[node name="testGridMap" parent="." instance=ExtResource( 8 )]
+
+[connection signal="pressed" from="CheckButton" to="." method="_on_CheckButton_pressed"]
