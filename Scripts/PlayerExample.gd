@@ -20,6 +20,10 @@ func _physics_process(delta): #put everything that happens in here
 		move_dir -= 1
 		
 	move_and_slide(Vector3(move_dir * MOVE_SPEED, y_velocity, 0), Vector3(0,1,0))
+	#for index in get_slide_count():
+	#	var collision = get_slide_collision(index)
+	#	var body = collision.collider
+	#	print("collided w/: ", body.name)
 
 	#jump code. demo says need to be after move_and_slide
 	var just_jumped = false
@@ -58,3 +62,13 @@ func _physics_process(delta): #put everything that happens in here
 #	if anim_player.current_animation == anim:
 #		return
 #	anim_player.play(anim)
+
+
+func _on_InteractOne_body_entered(body):
+	print("interacted with moving thing")
+
+
+func _on_WillDisappear_body_entered(body):
+	# not a problem for us, but if we had more rigis bodies that enter a zone, need to filter
+	# if body.name == "player:"
+	print("interacted with WillDisappear")

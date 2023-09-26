@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://background.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://PlayerExample.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://WillDisappear.tscn" type="PackedScene" id=6]
 [ext_resource path="res://willAppear.tscn" type="PackedScene" id=7]
 [ext_resource path="res://testGridMap.tscn" type="PackedScene" id=8]
+[ext_resource path="res://iteractables/InteractOne.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Skin" id=3]
 
@@ -20,6 +21,37 @@ background_color = Color( 0.886275, 0.976471, 0.976471, 1 )
 ambient_light_color = Color( 0.647059, 0.627451, 0.662745, 1 )
 ambient_light_energy = 0.86
 ambient_light_sky_contribution = 0.19
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 24, 0, 4 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "interactAnimation"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 24, 0, 4 ), Vector3( 24.5, 0, 4 ), Vector3( 24, 0, 4 ), Vector3( 23.5, 0, 4 ), Vector3( 24, 0, 4 ) ]
+}
 
 [node name="world" type="Spatial"]
 script = ExtResource( 5 )
@@ -64,6 +96,7 @@ shadow_color = Color( 0.415686, 0.396078, 0.431373, 1 )
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 10, 50 )
 environment = SubResource( 5 )
+fov = 88.9
 target = NodePath("../player/CameraTarget")
 speed = 1.5
 enabled = true
@@ -82,4 +115,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
 [node name="testGridMap" parent="." instance=ExtResource( 8 )]
 
+[node name="InteractOne" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractOne"]
+autoplay = "interactAnimation"
+anims/RESET = SubResource( 6 )
+anims/interactAnimation = SubResource( 7 )
+
 [connection signal="pressed" from="CheckButton" to="." method="_on_CheckButton_pressed"]
+[connection signal="body_entered" from="WillDisappear" to="player" method="_on_WillDisappear_body_entered"]
+[connection signal="body_entered" from="InteractOne" to="player" method="_on_InteractOne_body_entered"]
