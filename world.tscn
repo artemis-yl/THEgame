@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://background.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://PlayerExample.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://willAppear.tscn" type="PackedScene" id=7]
 [ext_resource path="res://testGridMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://iteractables/InteractOne.tscn" type="PackedScene" id=9]
+[ext_resource path="res://iteractables/GUITextPanel.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Skin" id=3]
 
@@ -110,6 +111,9 @@ script = ExtResource( 4 )
 [node name="WillDisappear" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
+[node name="GUITextPanel" parent="WillDisappear" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.59481, 1.66819, 6.84444 )
+
 [node name="willAppear" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
@@ -124,5 +128,7 @@ anims/RESET = SubResource( 6 )
 anims/interactAnimation = SubResource( 7 )
 
 [connection signal="pressed" from="CheckButton" to="." method="_on_CheckButton_pressed"]
+[connection signal="body_entered" from="WillDisappear" to="." method="_on_WillDisappear_body_entered"]
 [connection signal="body_entered" from="WillDisappear" to="player" method="_on_WillDisappear_body_entered"]
+[connection signal="body_exited" from="WillDisappear" to="." method="_on_WillDisappear_body_exited"]
 [connection signal="body_entered" from="InteractOne" to="player" method="_on_InteractOne_body_entered"]

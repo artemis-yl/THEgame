@@ -63,7 +63,7 @@ func _physics_process(delta): #put everything that happens in here
 #		return
 #	anim_player.play(anim)
 
-
+"""
 func _on_InteractOne_body_entered(body):
 	print("interacted with moving thing")
 
@@ -72,3 +72,4 @@ func _on_WillDisappear_body_entered(body):
 	# not a problem for us, but if we had more rigis bodies that enter a zone, need to filter
 	# if body.name == "player:"
 	print("interacted with WillDisappear")
+	"""
