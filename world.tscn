@@ -127,8 +127,13 @@ autoplay = "interactAnimation"
 anims/RESET = SubResource( 6 )
 anims/interactAnimation = SubResource( 7 )
 
+[node name="willAppear2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9895, 0, 3 )
+
 [connection signal="pressed" from="CheckButton" to="." method="_on_CheckButton_pressed"]
 [connection signal="body_entered" from="WillDisappear" to="." method="_on_WillDisappear_body_entered"]
 [connection signal="body_entered" from="WillDisappear" to="player" method="_on_WillDisappear_body_entered"]
 [connection signal="body_exited" from="WillDisappear" to="." method="_on_WillDisappear_body_exited"]
+[connection signal="body_entered" from="InteractOne" to="." method="_on_InteractOne_body_entered"]
 [connection signal="body_entered" from="InteractOne" to="player" method="_on_InteractOne_body_entered"]
+[connection signal="body_exited" from="InteractOne" to="." method="_on_InteractOne_body_exited"]
