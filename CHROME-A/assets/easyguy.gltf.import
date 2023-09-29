@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/easyguy.gltf-d599e855bbe5cafd24451916ecc0afc7.scn"
+path="res://.import/easyguy.gltf-2b2112366b22df498e4cae694eac4e37.scn"
 
 [deps]
 
-source_file="res://assets/playermodel/easyguy.gltf"
-dest_files=[ "res://.import/easyguy.gltf-d599e855bbe5cafd24451916ecc0afc7.scn" ]
+source_file="res://assets/easyguy.gltf"
+dest_files=[ "res://.import/easyguy.gltf-2b2112366b22df498e4cae694eac4e37.scn" ]
 
 [params]
 

@@ -46,10 +46,10 @@ func _physics_process(delta): #put everything that happens in here
 			y_velocity = JUMP_SPEED
 			just_jumped = true
 
-	#if move_dir < 0 and facing_right:
-	#	flip()
-	#if move_dir > 0 and !facing_right:
-	#	flip()
+	if move_dir < 0 and facing_right:
+		flip()
+	if move_dir > 0 and !facing_right:
+		flip()
 
 	#if just_jumped:
 		#play_anim("jump")
@@ -59,9 +59,9 @@ func _physics_process(delta): #put everything that happens in here
 		else:
 			play_anim("walk")
 
-#func flip():
-#	$Graphics.rotation_degrees.y *= -1
-#	facing_right = !facing_right
+func flip():
+	$Armature/Skeleton.rotation_degrees.x *= -1
+	facing_right = !facing_right
 
 func play_anim(anim):
 	if anim_player.current_animation == anim:

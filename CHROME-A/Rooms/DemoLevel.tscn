@@ -1,26 +1,26 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/RenewedThing.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/DeadThing.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/TextPanel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/DemoLevel.gd" type="Script" id=5]
 [ext_resource path="res://assets/floor.meshlib" type="MeshLibrary" id=6]
+[ext_resource path="res://assets/easyguy.tscn" type="PackedScene" id=7]
 
 [node name="DemoLevel" type="Spatial"]
 script = ExtResource( 5 )
 
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 10, 50 )
-target = NodePath("../Player/CameraTarget")
+target = NodePath("../easyguy/CameraTarget")
 speed = 1.5
 enabled = true
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2248, 6.24992, 0 )
+[node name="easyguy" parent="." instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.9782, 8.80174, 0 )
 
-[node name="CameraTarget" type="Spatial" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 20 )
+[node name="CameraTarget" type="Spatial" parent="easyguy"]
+transform = Transform( 0, -0.18757, -8.19894e-09, 0, -4.37114e-08, 1, 0, 0.982251, 4.29356e-08, 20, 5, 0 )
 
 [node name="DeadThing_Renew" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.062119, 0, -0.564611 )
