@@ -124,6 +124,7 @@ speed = 1.5
 enabled = true
 
 [node name="CheckButton" type="CheckButton" parent="."]
+visible = false
 margin_left = 498.0
 margin_right = 595.0
 margin_bottom = 67.0

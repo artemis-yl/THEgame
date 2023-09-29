@@ -8,7 +8,7 @@ const MAX_FALL_SPEED = 100
 var y_velocity = 0
 var facing_right = false
 
-#onready var anim_player = 
+onready var anim_player = $AnimationPlayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -53,19 +53,17 @@ func _physics_process(delta): #put everything that happens in here
 
 	#if just_jumped:
 		#play_anim("jump")
-	"""if grounded:
+	if grounded:
 		if move_dir == 0:
 			play_anim("idle")
 		else:
 			play_anim("walk")
-			
-			"""
 
 #func flip():
 #	$Graphics.rotation_degrees.y *= -1
 #	facing_right = !facing_right
 
-#func play_anim(anim):
-#	if anim_player.current_animation == anim:
-#		return
-#	anim_player.play(anim)
+func play_anim(anim):
+	if anim_player.current_animation == anim:
+		return
+	anim_player.play(anim)
