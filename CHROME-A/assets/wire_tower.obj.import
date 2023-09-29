@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wire_tower.obj-fc3a7dd05085919c3825584753510fb4.mesh"
+
+[deps]
+
+files=[ "res://.import/wire_tower.obj-fc3a7dd05085919c3825584753510fb4.mesh" ]
+
+source_file="res://assets/wire_tower.obj"
+dest_files=[ "res://.import/wire_tower.obj-fc3a7dd05085919c3825584753510fb4.mesh", "res://.import/wire_tower.obj-fc3a7dd05085919c3825584753510fb4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
