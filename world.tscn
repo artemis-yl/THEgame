@@ -1,101 +1,176 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://background.meshlib" type="MeshLibrary" id=1]
-[ext_resource path="res://easyguy2.gd" type="Script" id=2]
-[ext_resource path="res://easyguy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://PlayerExample.tscn" type="PackedScene" id=2]
+[ext_resource path="res://basic_cyborg.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Scripts/CheckButton.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/world.gd" type="Script" id=5]
+[ext_resource path="res://WillDisappear.tscn" type="PackedScene" id=6]
+[ext_resource path="res://willAppear.tscn" type="PackedScene" id=7]
+[ext_resource path="res://testGridMap.tscn" type="PackedScene" id=8]
+[ext_resource path="res://iteractables/InteractOne.tscn" type="PackedScene" id=9]
+[ext_resource path="res://iteractables/GUITextPanel.tscn" type="PackedScene" id=10]
 
-[sub_resource type="ProceduralSky" id=13]
-sky_top_color = Color( 0.427451, 0.458824, 0.478431, 1 )
-sky_horizon_color = Color( 0.941176, 0.94902, 0.941176, 1 )
-sun_color = Color( 0.8, 0.780392, 0.721569, 1 )
+[sub_resource type="Skin" id=3]
 
-[sub_resource type="Environment" id=10]
-background_mode = 2
-background_sky = SubResource( 13 )
-background_sky_custom_fov = 154.3
-fog_enabled = true
-fog_color = Color( 0.247059, 0.27451, 0.298039, 1 )
-fog_sun_color = Color( 0.701961, 0.690196, 0.658824, 1 )
+[sub_resource type="CylinderShape" id=4]
+radius = 0.05
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="Environment" id=5]
+background_mode = 1
+background_color = Color( 0.886275, 0.976471, 0.976471, 1 )
+ambient_light_color = Color( 0.647059, 0.627451, 0.662745, 1 )
+ambient_light_energy = 0.86
+ambient_light_sky_contribution = 0.19
 
-[sub_resource type="CylinderShape" id=9]
+[sub_resource type="SpatialMaterial" id=10]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+flags_albedo_tex_force_srgb = true
+albedo_color = Color( 0, 0, 0, 1 )
+uv1_scale = Vector3( 3.5, 3, 3.5 )
+uv1_offset = Vector3( -0.08, -0.2, 0 )
 
-[sub_resource type="PlaneMesh" id=11]
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 24, 0, 4 ) ]
+}
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="Animation" id=7]
+resource_name = "interactAnimation"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 24, 0, 4 ), Vector3( 24.5, 0, 4 ), Vector3( 24, 0, 4 ), Vector3( 23.5, 0, 4 ), Vector3( 24, 0, 4 ) ]
+}
 
-[sub_resource type="SphereMesh" id=14]
-radius = 6.0
-height = 12.422
-rings = 25
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="SpatialMaterial" id=9]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+flags_albedo_tex_force_srgb = true
+albedo_texture = SubResource( 8 )
+uv1_scale = Vector3( 3.5, 3, 3.5 )
+uv1_offset = Vector3( -0.08, -0.2, 0 )
 
 [node name="world" type="Spatial"]
+script = ExtResource( 5 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 10 )
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.406602, 0, 0, 0, 0.534513, 0, 0, 0, 0.670095, 2.74954, 5.85113, -0.378425 )
+mesh = ExtResource( 3 )
+skin = SubResource( 3 )
+
+[node name="KinematicBody" type="KinematicBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.56349, -0.139524 )
+shape = SubResource( 4 )
+
+[node name="player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.92044, 0 )
+
+[node name="CameraTarget" type="Spatial" parent="player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 30 )
 
 [node name="GridMap" type="GridMap" parent="."]
-visible = false
 mesh_library = ExtResource( 1 )
-cell_size = Vector3( 2, 2, 10 )
 cell_center_z = false
 data = {
-"cells": PoolIntArray( 2, 0, 1, 7, 0, 1, 12, 0, 1, 17, 0, 1, 22, 0, 1, 27, 0, 1, 65518, 0, 1, 65523, 0, 1, 65528, 0, 1, 65533, 0, 1, 131049, 0, 1, 131091, 0, 1, 262117, 0, 1, 327692, 0, 1, 393186, 0, 1, 393198, 0, 1, 393225, 0, 1, 458735, 0, 1, 458740, 0, 1, 458759, 0, 1, 524280, 0, 1, 589818, 0, 1, 589823, 0, 1, -131064, 0, 1, -131059, 0, 1, -65529, 0, 1, 11, 1, 3, 65518, 1, 786433, 131081, 3, 3, 25, 65488, 1, 65398, 65491, 1, 65435, 65492, 1, 65475, 65495, 1, 65524, 65503, 1, 1441777, 65524, 2, 393213, 65526, 2, 786385, 65526, 2, 44, 65533, 786433, 93, 65533, 786433, 138, 65533, 786433, 172, 65533, 786433, 211, 65533, 786433, 65365, 65533, 786433, 65401, 65533, 786433, 65446, 65533, 786433, 65488, 65533, 786433, 65530, 65533, 786433, 131065, 65534, 3, 196602, 65534, 3, 131066, 65535, 3 )
+"cells": PoolIntArray( 2, 0, 1, 17, 0, 1, 65518, 0, 1, 65523, 0, 1, 65528, 0, 1, 65533, 0, 1, 131049, 0, 1, 131091, 0, 1, 131096, 0, 1, 131101, 0, 1, 262117, 0, 1, 327692, 0, 1, 393186, 0, 1, 393198, 0, 1, 393225, 0, 1, 458735, 0, 1, 458740, 0, 1, 458759, 0, 1, 524280, 0, 1, 589818, 0, 1, 589823, 0, 1, -131064, 0, 1, -131059, 0, 1, -65529, 0, 1, 11, 1, 3, 131081, 3, 3, 2097126, 65516, 393218, 983046, 65520, 393218, 589858, 65526, 393218, 655334, 65526, 393218, 131065, 65534, 3, 196602, 65534, 3, 131066, 65535, 3 )
 }
 __meta__ = {
 "_editor_clip_": 0,
-"_editor_floor_": Vector3( 0, 0, 0 )
+"_editor_floor_": Vector3( 0, -5, 0 )
 }
-
-[node name="StaticBody" type="StaticBody" parent="GridMap"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5194, 16.2931, -48.5865 )
-
-[node name="CollisionShape" type="CollisionShape" parent="GridMap/StaticBody"]
-transform = Transform( 36.9547, 0, 0, 0, 0.873838, 0, 0, 0, 43.0459, 0, 0.198734, 0 )
-shape = SubResource( 8 )
 
 [node name="Spatial" type="Spatial" parent="."]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.904492, 0.42649, 0, -0.42649, -0.904492, -0.584263, 23.9787, -87.7447 )
-light_color = Color( 0.815686, 0.831373, 0.803922, 1 )
-light_energy = 0.606
-light_indirect_energy = 1.147
-light_specular = 1.821
+transform = Transform( 1, 0, 0, 0, -0.904492, 0.42649, 0, -0.42649, -0.904492, -0.584263, 9.75816, -6.39683 )
+light_color = Color( 0.980392, 0.980392, 0.94902, 1 )
+light_energy = 0.706
 shadow_enabled = true
 shadow_color = Color( 0.415686, 0.396078, 0.431373, 1 )
 
-[node name="easyguy2" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.02357, 0 )
-script = ExtResource( 2 )
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 10, 50 )
+environment = SubResource( 5 )
+fov = 88.9
+target = NodePath("../player/CameraTarget")
+speed = 1.5
+enabled = true
 
-[node name="CollisionShape" type="CollisionShape" parent="easyguy2"]
-transform = Transform( 1.31202, 0, 0, 0, 4.51894, 0, 0, 0, 0.631922, 0, 0, 0 )
-shape = SubResource( 9 )
+[node name="CheckButton" type="CheckButton" parent="."]
+margin_left = 498.0
+margin_right = 595.0
+margin_bottom = 67.0
+script = ExtResource( 4 )
 
-[node name="Camera" type="Camera" parent="easyguy2"]
-transform = Transform( -1, 2.8108e-05, -2.07882e-05, 2.28686e-05, 0.975688, 0.219165, 2.64431e-05, 0.219165, -0.975688, 0, 8.11551, -21.9396 )
-fov = 90.6533
+[node name="WillDisappear" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 237.618, 0, 0, 0, 1, 0, 0, 0, 182.956, 0, 0, 0 )
-mesh = SubResource( 11 )
+[node name="GUITextPanel" parent="WillDisappear" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.59481, 1.66819, 6.84444 )
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="MeshInstance" parent="WillDisappear/GUITextPanel" index="0"]
+material/0 = SubResource( 10 )
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 12 )
+[node name="Label3D" parent="WillDisappear/GUITextPanel" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0131989 )
+text = "do i appear when editable? owo"
 
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3232, 32.6647, 132.921 )
-mesh = SubResource( 14 )
+[node name="willAppear" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="MeshInstance2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368637, -1.095, -6.05083 )
-light_color = Color( 0.917647, 0.321569, 0.0901961, 1 )
-light_energy = 1.181
-light_indirect_energy = 0.0
-directional_shadow_max_distance = 15.6
+[node name="testGridMap" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[node name="InteractOne" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractOne"]
+autoplay = "interactAnimation"
+anims/RESET = SubResource( 6 )
+anims/interactAnimation = SubResource( 7 )
+
+[node name="GUITextPanel" parent="InteractOne" instance=ExtResource( 10 )]
+
+[node name="MeshInstance" parent="InteractOne/GUITextPanel" index="0"]
+material/0 = SubResource( 9 )
+
+[node name="willAppear2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9895, 0, 3 )
+
+[connection signal="pressed" from="CheckButton" to="." method="_on_CheckButton_pressed"]
+[connection signal="body_entered" from="WillDisappear" to="." method="_on_WillDisappear_body_entered"]
+[connection signal="body_entered" from="WillDisappear" to="player" method="_on_WillDisappear_body_entered"]
+[connection signal="body_exited" from="WillDisappear" to="." method="_on_WillDisappear_body_exited"]
+[connection signal="body_entered" from="InteractOne" to="." method="_on_InteractOne_body_entered"]
+[connection signal="body_entered" from="InteractOne" to="player" method="_on_InteractOne_body_entered"]
+[connection signal="body_exited" from="InteractOne" to="." method="_on_InteractOne_body_exited"]
+
+[editable path="WillDisappear/GUITextPanel"]
+[editable path="InteractOne/GUITextPanel"]
