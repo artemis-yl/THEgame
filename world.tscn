@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://background.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://PlayerExample.tscn" type="PackedScene" id=2]
@@ -22,6 +22,18 @@ background_color = Color( 0.886275, 0.976471, 0.976471, 1 )
 ambient_light_color = Color( 0.647059, 0.627451, 0.662745, 1 )
 ambient_light_energy = 0.86
 ambient_light_sky_contribution = 0.19
+
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="SpatialMaterial" id=9]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+flags_albedo_tex_force_srgb = true
+albedo_texture = SubResource( 8 )
+uv1_scale = Vector3( 3.5, 3, 3.5 )
+uv1_offset = Vector3( -0.08, -0.2, 0 )
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -114,6 +126,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 [node name="GUITextPanel" parent="WillDisappear" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.59481, 1.66819, 6.84444 )
 
+[node name="MeshInstance" parent="WillDisappear/GUITextPanel" index="0"]
+material/0 = SubResource( 9 )
+
+[node name="Label" parent="WillDisappear/GUITextPanel/Viewport/Panel" index="0"]
+text = "I am a sample pop up textbox. hopefully i also poof
+
+changed owo
+"
+
 [node name="willAppear" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
@@ -137,3 +158,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9895, 0, 3 )
 [connection signal="body_entered" from="InteractOne" to="." method="_on_InteractOne_body_entered"]
 [connection signal="body_entered" from="InteractOne" to="player" method="_on_InteractOne_body_entered"]
 [connection signal="body_exited" from="InteractOne" to="." method="_on_InteractOne_body_exited"]
+
+[editable path="WillDisappear/GUITextPanel"]

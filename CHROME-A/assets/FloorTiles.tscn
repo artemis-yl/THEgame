@@ -1,3 +1,15 @@
 [gd_scene format=2]
 
 [node name="FloorTiles" type="Spatial"]
+
+[node name="FlatFloor" type="MeshInstance" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="FlatFloor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="FlatFloor/StaticBody"]
+
+[node name="SlopedFloor" type="MeshInstance" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="SlopedFloor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="SlopedFloor/StaticBody"]

@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="TextPanel" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+
+[node name="Area" type="Area" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/Area"]
+
+[node name="Viewport" type="Viewport" parent="."]
+
+[node name="Panel" type="Panel" parent="Viewport"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label3D" type="Label" parent="Viewport/Panel"]
