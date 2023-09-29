@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/PlayAgain.gd" type="Script" id=1]
 [ext_resource path="res://images/end card.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://images/playPressed.png" type="Texture" id=4]
 [ext_resource path="res://images/playHover.png" type="Texture" id=5]
 [ext_resource path="res://fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://scripts/creditButton.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 28
@@ -49,5 +50,7 @@ custom_colors/font_color_pressed = Color( 0.968627, 0.435294, 0.898039, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "View Credits"
 flat = true
+script = ExtResource( 7 )
 
 [connection signal="pressed" from="PlayAgainButton" to="PlayAgainButton" method="_on_PlayAgain_pressed"]
+[connection signal="pressed" from="creditButton" to="creditButton" method="_on_creditButton_pressed"]

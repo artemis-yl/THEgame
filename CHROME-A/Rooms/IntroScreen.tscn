@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://images/intro+logo.png" type="Texture" id=1]
+[ext_resource path="res://fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://IntroScreen.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+outline_size = 2
+outline_color = Color( 1, 0.968627, 0.807843, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="IntroScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1220.0
+margin_bottom = 589.0
+custom_colors/font_color = Color( 0.301961, 0.282353, 0.282353, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "I woke up to this dead world.
+...
+This flower... it should not be powering me. 
+Maybe it can renew (r-button) other things too.
+
+But somethings... I should clear them away (c-button) instead.
+
+Who knows, if I do this renew and clear away the right things, maybe something will happen.
+
+(press (e) to continue and interact)"
+autowrap = true
