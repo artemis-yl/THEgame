@@ -19,9 +19,9 @@ func _physics_process(delta): #put everything that happens in here
 	# move the player right, left, or stay still
 	var move_dir = 0 #'reset's so can only be 0, 1(right) or -1(left)
 	#if player pressed both buttons, will end up being +1 -1 = 0
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("moveRight"):
 		move_dir += 1
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("moveLeft"):
 		move_dir -= 1
 		
 	move_and_slide(Vector3(move_dir * MOVE_SPEED, y_velocity, 0), Vector3(0,1,0))
