@@ -1,15 +1,19 @@
 # chrome_A
 
-PLEASE GO INTO THE CHROME-A FOLDER FOR THE 'FINAL' GAME. The "outer" files are simply the prototype we used/made when learning how to use Godot.
+### PLEASE GO INTO THE CHROME-A FOLDER FOR THE 'FINAL' GAME. The "outer" files are simply the prototype we used/made when learning how to use Godot.
 
 This game was made by Artemis, Serena and Aimee!
 
+
+## Credits:
+
+**Do note that my teammates have asked to only have their first names published here. If you would like to contact them, you can likley find them through TMU's Game Maker Union**
 
 Aimee: 2D Artist! Concept, texture, logo and all backgrounds! Why it looks actually pretty!!!!!
 
 Serena: 3D Artist, Animator and Asset Maker!!! You see anything 3D, Serena made it! Our player animation is all her hard work!
 
-Artemis: Coder and Game Developer! All scripts and overall structure/scene creation was created by Artemis.
+Artemis: Coder, Game Developer, Repo Owner! All scripts and overall game structure/scene creation was created by Artemis.
 
 
 Please note, we never made a game before and are entry-level coders! Making all the art, assets, and learning how to use a whole game engine in just under a week!!! Let's be proud of ourselves.
